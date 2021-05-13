@@ -3,7 +3,9 @@ CSS extension language
 
 ## .SCSS SYNTAX
 
-Hace todo lo que hace css.
+Hace todo lo que hace css pero de forma más sencialla.
+
+Los navegadoes no leen scss, hay que usar un compilador.
 
 ```scss
 @mixin button-base() {
