@@ -1,0 +1,75 @@
+@import './resets';
+@import './variables';
+
+// Functions
+@function weight($weight-name) {
+    @return map-get($font-weights, $weight-name);
+}
+
+// Mixin: similar to fucntions, but it should be used for styles, instead functions should be used to compute values and return values.
+
+@mixin flexcenter($direction) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: $direction;
+}
+
+@mixin theme($light-theme: true){
+    @if $light-theme {
+        background: lighten($primary-color, 100%);
+        color: darken($text-color, 100%);
+
+    }
+}
+
+@mixin mobile {
+    @media (max-width: $mobile) {
+        @content;
+    }
+}
+
+body {
+    background: $primary-color;
+    color: $text-color;
+    font-weight: map-get($font-weights, bold);
+}
+
+
+// Nest
+// With sass we can nest
+
+.main {
+    @include flexcenter(row);
+    // Calculations: you can use it without calc()
+    width: 80%-10%;
+    margin: 0 auto;
+
+    // Instead of ".main__paragraph" we can use &__paragraph
+    // & equals the parent
+    &__paragraph {
+        font-weight: weight(regular);
+        color: blue;
+        &:hover {
+            color: pink;
+        }
+    }
+
+    &__paragraph2 {
+        @extend .main__paragraph;
+
+        &:hover{
+            color: $accent-color;
+        }
+    }
+
+    @include mobile{
+        flex-direction: column;
+    }
+}
+
+
+
+.light {
+    @include theme($light-theme: true);
+}
